@@ -1,5 +1,5 @@
-$url = "https://github.com/datbuiquoc035/winsetup/releases/latest/download/WinSetup.exe"
-$tmp = "$env:TEMP\WinSetup.exe"
+$url = "https://github.com/datbuiquoc035/winsetup/releases/latest/download/winsetup-core.exe"
+$tmp = "$env:TEMP\winsetup-core.exe"
 
 Write-Host "Downloading WinSetup..." -ForegroundColor Cyan
 Invoke-WebRequest -Uri $url -OutFile $tmp

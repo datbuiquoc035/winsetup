@@ -10,6 +10,8 @@ Run this in **PowerShell as Administrator**:
 irm https://raw.githubusercontent.com/datbuiquoc035/winsetup/main/winsetup.ps1 | iex
 ```
 
+> **Note:** Release currently includes the Rust backend (CLI). The WinUI 3 frontend needs to be built locally on Windows — see Development section below.
+
 ## Features
 
 - **App catalog** with 20+ essential apps across Browsers, Dev Tools, Utilities, Communication, and Media
