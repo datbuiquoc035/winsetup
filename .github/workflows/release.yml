@@ -42,7 +42,7 @@ jobs:
         shell: pwsh
         run: |
           cd src/Winsetup.App
-          dotnet publish -c Release -o ../../publish -p:WindowsPackageType=None
+          dotnet build -c Release
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
