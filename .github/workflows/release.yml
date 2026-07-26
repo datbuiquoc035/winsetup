@@ -40,8 +40,9 @@ jobs:
         working-directory: src/Winsetup.App
         run: |
           dotnet --version
-          dotnet restore --verbosity normal 2>&1
-          dotnet publish -c Release -o ../../publish --verbosity normal 2>&1
+          dotnet restore
+          dotnet build -c Release --no-restore
+          dotnet publish -c Release --no-build -o ../../publish
 
       - name: Copy Rust binary
         run: |
