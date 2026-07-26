@@ -42,9 +42,15 @@ jobs:
         shell: pwsh
         run: |
           cd src/Winsetup.App
-          dotnet publish -c Release -o publish_out -p:WindowsPackageType=None
-          if ($LASTEXITCODE -eq 0) {
-            Copy-Item -Recurse publish_out\* ..\..\publish\
+          dotnet build -c Release
+          echo "Exit code: $LASTEXITCODE"
+          $outdir = Get-ChildItem -Path bin -Recurse -Directory -Filter "net8.0-windows10.0.19041.0" | Select-Object -First 1 -ExpandProperty FullName
+          if ($outdir) {
+            echo "Copying from: $outdir"
+            Copy-Item -Recurse "$outdir\*" ..\..\publish\
+            Get-ChildItem ..\..\publish\ | ForEach-Object { $_.Name }
+          } else {
+            echo "No output directory found"
           }
 
       - name: Upload Release
