@@ -22,10 +22,17 @@ jobs:
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
 
       - name: Build Rust backend
+        shell: pwsh
         working-directory: src/winsetup-core
-        run: cargo build --release
+        run: |
+          rustc --version
+          cargo --version
+          rustup target list --installed
+          cargo build --release --verbose 2>&1
 
       - name: Build .NET frontend
         working-directory: src/Winsetup.App
