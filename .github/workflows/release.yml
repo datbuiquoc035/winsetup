@@ -35,10 +35,11 @@ jobs:
           cd src/Winsetup.App
           dotnet publish -c Release -o ../../publish --self-contained -r win-x64 -p:PublishSingleFile=true
 
-      - name: Stage catalog
+      - name: Stage assets
         shell: pwsh
         run: |
           Copy-Item catalog.json publish/
+          Copy-Item src/winsetup-core/target/release/winsetup-core.exe publish/
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
