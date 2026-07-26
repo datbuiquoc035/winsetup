@@ -56,8 +56,7 @@
                 x:Name="InstallButton"
                 Content="Install Selected"
                 Click="OnInstallClicked"
-                HorizontalAlignment="Stretch"
-                Style="{StaticResource AccentButtonStyle}" />
+                HorizontalAlignment="Stretch" />
         </StackPanel>
     </Grid>
 </Window>
