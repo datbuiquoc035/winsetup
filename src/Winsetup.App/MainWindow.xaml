@@ -2,62 +2,9 @@
     x:Class="Winsetup.App.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="WinSetup"
-    Width="600"
-    Height="500">
+    Title="WinSetup">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <AutoSuggestBox
-            Grid.Row="0"
-            x:Name="SearchBox"
-            PlaceholderText="Search apps..."
-            QuerySubmitted="OnSearchSubmitted"
-            TextChanged="OnSearchChanged"
-            Margin="12,12,12,8" />
-
-        <ListView
-            Grid.Row="1"
-            x:Name="AppList"
-            SelectionMode="None"
-            Margin="12,0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <CheckBox
-                            Grid.Column="0"
-                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                            VerticalAlignment="Center" />
-                        <StackPanel Grid.Column="1" Margin="12,0">
-                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                            <TextBlock Text="{Binding Description}" Opacity="0.7" />
-                        </StackPanel>
-                        <TextBlock
-                            Grid.Column="2"
-                            Text="{Binding Status}"
-                            VerticalAlignment="Center" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <StackPanel Grid.Row="2" Margin="12,8,12,12" Spacing="8">
-            <ProgressBar x:Name="InstallProgress" IsIndeterminate="False" Visibility="Collapsed" />
-            <Button
-                x:Name="InstallButton"
-                Content="Install Selected"
-                Click="OnInstallClicked"
-                HorizontalAlignment="Stretch" />
-        </StackPanel>
-    </Grid>
+    <StackPanel>
+        <Button x:Name="InstallButton" Content="Install Selected" Click="OnInstallClicked" />
+    </StackPanel>
 </Window>
