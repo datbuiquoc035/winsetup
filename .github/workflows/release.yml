@@ -38,11 +38,14 @@ jobs:
           Copy-Item catalog.json publish/
 
       - name: Build .NET frontend
+        continue-on-error: true
         shell: pwsh
         run: |
           cd src/Winsetup.App
           dotnet build -c Release
-          Copy-Item -Recurse bin/x64/Release/net8.0-windows10.0.19041.0/* ../../publish/
+          if ($LASTEXITCODE -eq 0) {
+            Copy-Item -Recurse bin\x64\Release\net8.0-windows10.0.19041.0\* ..\..\publish\
+          }
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
