@@ -40,9 +40,10 @@ jobs:
         working-directory: src/Winsetup.App
         run: |
           dotnet --version
-          dotnet restore
-          dotnet build -c Release --no-restore
-          dotnet publish -c Release --no-build -o ../../publish
+          dotnet build -c Release -p:Platform=x64 2>&1
+          if ($LASTEXITCODE -eq 0) {
+            Copy-Item -Recurse bin\x64\Release\net8.0-windows10.0.19041.0\* ..\..\publish\ -ErrorAction SilentlyContinue
+          }
 
       - name: Copy Rust binary
         run: |
