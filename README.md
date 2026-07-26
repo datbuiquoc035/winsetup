@@ -7,11 +7,7 @@ Batch installer for essential Windows apps — powered by a .NET frontend and Ru
 Run this in **PowerShell as Administrator**:
 
 ```powershell
-$url = "https://github.com/datbuiquoc035/winsetup/releases/latest/download/WinSetup.exe"
-$tmp = "$env:TEMP\WinSetup.exe"
-Invoke-WebRequest -Uri $url -OutFile $tmp
-Start-Process -FilePath $tmp -Wait
-Remove-Item $tmp
+irm https://raw.githubusercontent.com/datbuiquoc035/winsetup/main/winsetup.ps1 | iex
 ```
 
 ## Features
