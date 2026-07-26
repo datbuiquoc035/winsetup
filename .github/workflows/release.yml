@@ -41,17 +41,18 @@ jobs:
         continue-on-error: true
         shell: pwsh
         run: |
-          cd src/Winsetup.App
-          dotnet build -c Release
-          echo "Exit code: $LASTEXITCODE"
-          $outdir = Get-ChildItem -Path bin -Recurse -Directory -Filter "net8.0-windows10.0.19041.0" | Select-Object -First 1 -ExpandProperty FullName
+          $log = "$pwd\publish\dotnet_build.log"
+          & dotnet build src/Winsetup.App/Winsetup.App.csproj -c Release *>> $log
+          "Exit code: $LASTEXITCODE" >> $log
+          $outdir = Get-ChildItem -Path src/Winsetup.App/bin -Recurse -Directory | Where-Object Name -like "*net8.0-windows*" | Select-Object -First 1
           if ($outdir) {
-            echo "Copying from: $outdir"
-            Copy-Item -Recurse "$outdir\*" ..\..\publish\
-            Get-ChildItem ..\..\publish\ | ForEach-Object { $_.Name }
+            "Output directory: $($outdir.FullName)" >> $log
+            Copy-Item -Recurse "$($outdir.FullName)\*" publish\
+            Get-ChildItem publish\ | ForEach-Object { $_.Name } >> $log
           } else {
-            echo "No output directory found"
+            "No output directory found" >> $log
           }
+          Get-Content $log
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
