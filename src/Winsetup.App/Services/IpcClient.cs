@@ -31,7 +31,8 @@ public class IpcClient : IDisposable
     {
         await SendAsync(new { type = "GetCatalog" });
         var response = await ReadResponseAsync();
-        return response?.RootElement.GetProperty("items")
+        if (response is null) return [];
+        return response.RootElement.GetProperty("items")
             .Deserialize<List<CatalogItem>>() ?? [];
     }
 

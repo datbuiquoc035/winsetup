@@ -5,6 +5,7 @@ New-Item -ItemType Directory -Force -Path $dir | Out-Null
 Write-Host "Downloading WinSetup..." -ForegroundColor Cyan
 Invoke-WebRequest -Uri "$repo/Winsetup.App.exe" -OutFile "$dir\Winsetup.App.exe"
 Invoke-WebRequest -Uri "$repo/winsetup-core.exe" -OutFile "$dir\winsetup-core.exe"
+Invoke-WebRequest -Uri "$repo/catalog.json" -OutFile "$dir\catalog.json"
 
 Push-Location $dir
 Write-Host "Launching WinSetup..." -ForegroundColor Cyan
