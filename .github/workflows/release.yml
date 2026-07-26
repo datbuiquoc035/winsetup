@@ -42,9 +42,9 @@ jobs:
         shell: pwsh
         run: |
           cd src/Winsetup.App
-          dotnet build -c Release
+          dotnet publish -c Release -o publish_out -p:WindowsPackageType=None
           if ($LASTEXITCODE -eq 0) {
-            Copy-Item -Recurse bin\x64\Release\net8.0-windows10.0.19041.0\* ..\..\publish\
+            Copy-Item -Recurse publish_out\* ..\..\publish\
           }
 
       - name: Upload Release
