@@ -31,7 +31,7 @@ public class IpcClient : IDisposable
     {
         await SendAsync(new { type = "GetCatalog" });
         var response = await ReadResponseAsync();
-        return response?.GetProperty("items")
+        return response?.RootElement.GetProperty("items")
             .Deserialize<List<CatalogItem>>() ?? [];
     }
 
@@ -44,14 +44,14 @@ public class IpcClient : IDisposable
             var response = await ReadResponseAsync();
             if (response == null) break;
 
-            var type = response.GetProperty("type").GetString();
+            var type = response.RootElement.GetProperty("type").GetString();
             if (type == "Summary") break;
 
             if (type == "Progress")
             {
-                var id = response.GetProperty("id").GetString() ?? "";
-                var status = response.GetProperty("status").GetString() ?? "";
-                var message = response.GetProperty("message").GetString() ?? "";
+                var id = response.RootElement.GetProperty("id").GetString() ?? "";
+                var status = response.RootElement.GetProperty("status").GetString() ?? "";
+                var message = response.RootElement.GetProperty("message").GetString() ?? "";
                 onProgress(id, status, message);
             }
         }

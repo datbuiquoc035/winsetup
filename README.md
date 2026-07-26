@@ -1,6 +1,6 @@
 # WinSetup
 
-Batch installer for essential Windows apps — powered by a .NET frontend and Rust backend.
+Batch installer for essential Windows apps — powered by a .NET console UI and Rust backend.
 
 ## Quick Start
 
@@ -10,12 +10,9 @@ Run this in **PowerShell as Administrator**:
 irm https://raw.githubusercontent.com/datbuiquoc035/winsetup/main/winsetup.ps1 | iex
 ```
 
-> **Note:** Release currently includes the Rust backend (CLI). The WinUI 3 frontend needs to be built locally on Windows — see Development section below.
-
 ## Features
 
 - **App catalog** with 20+ essential apps across Browsers, Dev Tools, Utilities, Communication, and Media
-- **Search/filter** to find apps quickly
 - **Batch install** with real-time progress per app
 - **Silent installs** via winget (no clicking through installers)
 - **Rollback on failure** — one failure doesn't stop the rest
@@ -24,10 +21,9 @@ irm https://raw.githubusercontent.com/datbuiquoc035/winsetup/main/winsetup.ps1 |
 
 ```
 src/
-├── Winsetup.App/          # .NET WinUI 3 frontend (MVVM)
-│   ├── ViewModels/
-│   ├── Services/
-│   └── Models/
+├── Winsetup.App/          # .NET console frontend
+│   ├── Services/          # IPC client
+│   └── Models/            # Catalog types
 └── winsetup-core/         # Rust backend (tokio + serde)
     └── src/
         ├── main.rs         # IPC loop over stdin/stdout
@@ -50,7 +46,7 @@ cargo build --release
 
 # Build .NET frontend
 cd src/Winsetup.App
-dotnet publish -c Release -o ../../publish
+dotnet publish -c Release -o ../../publish --self-contained -r win-x64 -p:PublishSingleFile=true
 
 # Copy Rust binary alongside the .NET app
 cp src/winsetup-core/target/release/winsetup-core.exe publish/

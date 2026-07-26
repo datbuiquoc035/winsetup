@@ -28,31 +28,17 @@ jobs:
         run: |
           cd src/winsetup-core
           cargo build --release
-          if ($LASTEXITCODE -ne 0) { exit 1 }
-
-      - name: Stage Rust binary
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path publish
-          Copy-Item src/winsetup-core/target/release/winsetup-core.exe publish/
-          Copy-Item catalog.json publish/
 
       - name: Build .NET frontend
-        continue-on-error: true
         shell: pwsh
         run: |
-          $log = "$pwd\publish\dotnet_build.log"
-          & dotnet build src/Winsetup.App/Winsetup.App.csproj -c Release *>> $log
-          "Exit code: $LASTEXITCODE" >> $log
-          $outdir = Get-ChildItem -Path src/Winsetup.App/bin -Recurse -Directory | Where-Object Name -like "*net8.0-windows*" | Select-Object -First 1
-          if ($outdir) {
-            "Output directory: $($outdir.FullName)" >> $log
-            Copy-Item -Recurse "$($outdir.FullName)\*" publish\
-            Get-ChildItem publish\ | ForEach-Object { $_.Name } >> $log
-          } else {
-            "No output directory found" >> $log
-          }
-          Get-Content $log
+          cd src/Winsetup.App
+          dotnet publish -c Release -o ../../publish --self-contained -r win-x64 -p:PublishSingleFile=true
+
+      - name: Stage catalog
+        shell: pwsh
+        run: |
+          Copy-Item catalog.json publish/
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
