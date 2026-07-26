@@ -6,6 +6,8 @@
     <RootNamespace>Winsetup.App</RootNamespace>
     <Platforms>x64</Platforms>
     <UseWinUI>true</UseWinUI>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
