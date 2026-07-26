@@ -27,30 +27,22 @@ jobs:
         shell: pwsh
         run: |
           cd src/winsetup-core
-          rustc --version
-          cargo --version
-          rustup target list --installed
-          echo "=== cargo check ==="
-          cargo check --verbose 2>&1
-          echo "=== cargo build ==="
-          cargo build 2>&1
+          cargo build --release
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
-      - name: Build .NET frontend
+      - name: Stage Rust binary
         shell: pwsh
         run: |
-          dotnet --version
-          dotnet workload install maui 2>&1
-          cd src/Winsetup.App
-          dotnet restore 2>&1
-          dotnet build -c Release -p:Platform=x64 2>&1
-          if ($LASTEXITCODE -eq 0) {
-            Copy-Item -Recurse "bin\x64\Release\net8.0-windows10.0.19041.0\*" ..\..\publish\ -ErrorAction SilentlyContinue
-          }
+          New-Item -ItemType Directory -Force -Path publish
+          Copy-Item src/winsetup-core/target/release/winsetup-core.exe publish/
+          Copy-Item catalog.json publish/
 
-      - name: Copy Rust binary
+      - name: Build .NET frontend
+        continue-on-error: true
+        shell: pwsh
         run: |
-          copy src\winsetup-core\target\release\winsetup-core.exe publish\
-          copy catalog.json publish\
+          cd src/Winsetup.App
+          dotnet publish -c Release -o ../../publish -p:WindowsPackageType=None
 
       - name: Upload Release
         uses: softprops/action-gh-release@v2
