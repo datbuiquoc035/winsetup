@@ -1,0 +1,3 @@
+src/winsetup-core/target/
+publish/
+*.exe
