@@ -36,8 +36,12 @@ jobs:
           cargo build 2>&1
 
       - name: Build .NET frontend
+        shell: pwsh
         working-directory: src/Winsetup.App
-        run: dotnet publish -c Release -o ../../publish
+        run: |
+          dotnet --version
+          dotnet restore --verbosity normal 2>&1
+          dotnet publish -c Release -o ../../publish --verbosity normal 2>&1
 
       - name: Copy Rust binary
         run: |
