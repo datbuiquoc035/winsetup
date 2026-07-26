@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Rust backend
+        working-directory: src/winsetup-core
+        run: cargo build --release
+
+      - name: Build .NET frontend
+        working-directory: src/Winsetup.App
+        run: dotnet publish -c Release -o ../../publish
+
+      - name: Copy Rust binary
+        run: |
+          copy src\winsetup-core\target\release\winsetup-core.exe publish\
+          copy catalog.json publish\
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: publish/*
+          generate_release_notes: true

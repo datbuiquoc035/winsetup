@@ -1,0 +1,29 @@
+{
+  "items": [
+    { "id": "firefox", "name": "Firefox", "category": "Browsers", "description": "Fast, private web browser", "winget_id": "Mozilla.Firefox" },
+    { "id": "chrome", "name": "Google Chrome", "category": "Browsers", "description": "Fast and secure browser from Google", "winget_id": "Google.Chrome" },
+    { "id": "brave", "name": "Brave", "category": "Browsers", "description": "Privacy-focused browser with built-in ad blocking", "winget_id": "Brave.Brave" },
+    { "id": "edge", "name": "Microsoft Edge", "category": "Browsers", "description": "Microsoft's Chromium-based browser", "winget_id": "Microsoft.Edge" },
+
+    { "id": "vscode", "name": "VS Code", "category": "Dev Tools", "description": "Lightweight code editor by Microsoft", "winget_id": "Microsoft.VisualStudioCode" },
+    { "id": "git", "name": "Git", "category": "Dev Tools", "description": "Distributed version control system", "winget_id": "Git.Git" },
+    { "id": "nodejs", "name": "Node.js", "category": "Dev Tools", "description": "JavaScript runtime built on V8", "winget_id": "OpenJS.NodeJS" },
+    { "id": "python", "name": "Python 3", "category": "Dev Tools", "description": "Popular programming language", "winget_id": "Python.Python.3" },
+    { "id": "docker", "name": "Docker Desktop", "category": "Dev Tools", "description": "Containerization platform", "winget_id": "Docker.DockerDesktop" },
+    { "id": "rust", "name": "Rust", "category": "Dev Tools", "description": "Systems programming language", "winget_id": "Rustlang.Rust.MSVC" },
+
+    { "id": "7zip", "name": "7-Zip", "category": "Utilities", "description": "File archiver with high compression", "winget_id": "7zip.7zip" },
+    { "id": "powertoys", "name": "PowerToys", "category": "Utilities", "description": "System utilities for power users", "winget_id": "Microsoft.PowerToys" },
+    { "id": "everything", "name": "Everything", "category": "Utilities", "description": "Instant file search for Windows", "winget_id": "voidtools.Everything" },
+    { "id": "obs", "name": "OBS Studio", "category": "Utilities", "description": "Open-source screen recording and streaming", "winget_id": "OBSProject.OBSStudio" },
+
+    { "id": "discord", "name": "Discord", "category": "Communication", "description": "Chat and voice communication platform", "winget_id": "Discord.Discord" },
+    { "id": "slack", "name": "Slack", "category": "Communication", "description": "Team messaging and collaboration", "winget_id": "SlackTechnologies.Slack" },
+    { "id": "zoom", "name": "Zoom", "category": "Communication", "description": "Video conferencing platform", "winget_id": "Zoom.Zoom" },
+
+    { "id": "vlc", "name": "VLC", "category": "Media", "description": "Versatile media player", "winget_id": "VideoLAN.VLC" },
+    { "id": "spotify", "name": "Spotify", "category": "Media", "description": "Music streaming service", "winget_id": "Spotify.Spotify" },
+    { "id": "gimp", "name": "GIMP", "category": "Media", "description": "GNU Image Manipulation Program", "winget_id": "GIMP.GIMP" },
+    { "id": "handbrake", "name": "HandBrake", "category": "Media", "description": "Video transcoder", "winget_id": "HandBrake.HandBrake" }
+  ]
+}
