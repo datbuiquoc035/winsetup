@@ -33,7 +33,7 @@ jobs:
         shell: pwsh
         run: |
           cd src/Winsetup.App
-          dotnet publish -c Release -o ../../publish --self-contained -r win-x64 -p:PublishSingleFile=true
+          dotnet publish -c Release -o ../../publish --self-contained -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
       - name: Stage assets
         shell: pwsh
@@ -41,8 +41,13 @@ jobs:
           Copy-Item catalog.json publish/
           Copy-Item src/winsetup-core/target/release/winsetup-core.exe publish/
 
+      - name: Package
+        shell: pwsh
+        run: |
+          Compress-Archive -Path publish\* -DestinationPath winsetup.zip
+
       - name: Upload Release
         uses: softprops/action-gh-release@v2
         with:
-          files: publish/*
+          files: winsetup.zip
           generate_release_notes: true

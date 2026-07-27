@@ -1,15 +1,18 @@
-$repo = "https://github.com/datbuiquoc035/winsetup/releases/latest/download"
+$url = "https://github.com/datbuiquoc035/winsetup/releases/latest/download/winsetup.zip"
 $dir = "$env:TEMP\winsetup"
+$zip = "$env:TEMP\winsetup.zip"
+
 New-Item -ItemType Directory -Force -Path $dir | Out-Null
 
 Write-Host "Downloading WinSetup..." -ForegroundColor Cyan
-Invoke-WebRequest -Uri "$repo/Winsetup.App.exe" -OutFile "$dir\Winsetup.App.exe"
-Invoke-WebRequest -Uri "$repo/winsetup-core.exe" -OutFile "$dir\winsetup-core.exe"
-Invoke-WebRequest -Uri "$repo/catalog.json" -OutFile "$dir\catalog.json"
+Invoke-WebRequest -Uri $url -OutFile $zip
 
-Push-Location $dir
+Write-Host "Extracting..." -ForegroundColor Cyan
+Expand-Archive -Path $zip -DestinationPath $dir -Force
+
 Write-Host "Launching WinSetup..." -ForegroundColor Cyan
+Push-Location $dir
 & ".\Winsetup.App.exe"
 Pop-Location
 
-Remove-Item -Recurse -Force $dir
+Remove-Item -Recurse -Force $dir, $zip
