@@ -32,6 +32,7 @@ public partial class MainForm : Form
         _installBtn.Click += OnInstallClicked;
         _searchBox.TextChanged += OnSearchChanged;
         _appList.ItemCheck += OnItemCheck;
+        FormClosing += (_, _) => _client.Dispose();
 
         Controls.Add(_appList);
         Controls.Add(_searchBox);

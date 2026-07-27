@@ -15,4 +15,5 @@ Push-Location $dir
 & ".\Winsetup.App.exe"
 Pop-Location
 
-Remove-Item -Recurse -Force $dir, $zip
+Start-Sleep -Seconds 1
+Remove-Item -Recurse -Force $dir, $zip -ErrorAction SilentlyContinue
